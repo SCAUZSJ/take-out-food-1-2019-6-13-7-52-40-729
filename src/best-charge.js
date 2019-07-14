@@ -1,4 +1,4 @@
-// 主函数 时间 27分钟
+// 主函数 预计时间25分钟 实际时间 27分钟
 function bestCharge(selectedItems) {
   let total = 0;
   let free = 0;
@@ -29,7 +29,7 @@ function bestCharge(selectedItems) {
   receipt += `总计：${parseInt(total)}元\n===================================`
   return receipt;
 }
-//判断该菜是否有半价优惠   1分钟
+//判断该菜是否有半价优惠  预计1分钟 实际1分钟
 function isHalfPriceOfItem(id) {
   return loadPromotions()[1].items.includes(id);
 }
