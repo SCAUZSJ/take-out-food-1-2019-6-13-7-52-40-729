@@ -1,6 +1,6 @@
 // 主函数 预计时间25分钟 实际时间 27分钟
 function bestCharge(selectedItems) {
-  let total = 0, free = 0, receipt = '';
+  let total = 0, discount = 0, receipt = '';
   let items = loadAllItems();
   let halfPriceItems = [];
   receipt = addReceiptHead(receipt);
@@ -11,7 +11,7 @@ function bestCharge(selectedItems) {
     })
     total += itemObj.price * arr[1];
     if (isHalfPriceOfItem(itemObj.id)) {
-      free += itemObj.price * arr[1] / 2;
+      discount += itemObj.price * arr[1] / 2;
       halfPriceItems.push(itemObj.name);
     }
     receipt = addReceiptItem(receipt,{
@@ -21,11 +21,11 @@ function bestCharge(selectedItems) {
     })
   });
   receipt = addReceiptSeparator(receipt);
-  if ((total >= 30 && free > 6) || (total < 30 && free != 0)) {
-    total -= free;
-    receipt = addHalfDisInfo(receipt,{itemString:halfPriceItems.join('，'),free:free});
+  if ((total >= 30 && discount > 6) || (total < 30 && discount != 0)) {
+    total -= discount;
+    receipt = addHalfDisInfo(receipt,{itemString:halfPriceItems.join('，'),discount:discount});
     receipt = addReceiptSeparator(receipt);
-  } else if (total > 30 && free <= 6) {
+  } else if (total > 30 && discount <= 6) {
     total -= 6;
     receipt = addReduceDisInfo(receipt);
     receipt = addReceiptSeparator(receipt);
@@ -46,7 +46,7 @@ function addReceiptSeparator(receipt){
   return receipt += `-----------------------------------\n`;
 }
 function addHalfDisInfo(receipt,info){
-  return receipt +=`使用优惠:\n指定菜品半价(${info.itemString})，省${info.free}元\n`;
+  return receipt +=`使用优惠:\n指定菜品半价(${info.itemString})，省${info.discount}元\n`;
 }
 function addReduceDisInfo(receipt,info){
   return receipt +=`使用优惠:\n满30减6元，省6元\n`;
